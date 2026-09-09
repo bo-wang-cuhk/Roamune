@@ -18,7 +18,7 @@
   --row-border: rgba(16, 16, 19, .065);
   --danger: #d6273b;
   --safe-top: calc(env(safe-area-inset-top, 0px) + 12px);
-  --nav-clearance: calc(96px + env(safe-area-inset-bottom, 0px));
+  --nav-clearance: calc(84px + env(safe-area-inset-bottom, 0px));
 }
 * { box-sizing: border-box; }
 html { height: 100%; min-height: 100%; overflow: visible; overscroll-behavior: none; background: var(--bg); color-scheme: light; }
