@@ -174,4 +174,4 @@ Possible later phases include:
 - multi-device sync
 - conflict resolution
 
-None of these features are implemented in the current phase. The next recommended product step is **Places / Trip structure refinement**. GitHub Sync should come only after that data model is settled.
+None of these features are implemented in the current phase. The next product step is **Places / Trip structure refinement**. GitHub Sync should come only after that data model is settled.
