@@ -1,5 +1,6 @@
 import { ArrowRight, CalendarDays, MapPin } from 'lucide-react'
 import type { Trip } from '../types/trip'
+import { TripCoverMedia } from './TripCoverMedia'
 
 function displayDate(value: string) {
   const date = new Date(`${value}T00:00:00`)
@@ -21,7 +22,7 @@ export function TripCard({ trip, onOpen, featured = false }: { trip: Trip; onOpe
       onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onOpen() }}
     >
       <div className="trip-cover">
-        <img src={trip.coverImage ?? './assets/roamune-default-cover.jpg'} alt="" />
+        <TripCoverMedia coverImage={trip.coverImage} seed={trip.id} />
         <div className="trip-cover-shade" />
         <span className="cover-badge"><span /> Journey</span>
         <div className="trip-cover-title">

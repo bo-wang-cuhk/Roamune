@@ -5,6 +5,7 @@ import { useTrips } from '../../app/TripsProvider'
 import { ConfirmDialog } from '../../components/ConfirmDialog'
 import { formatDateRange } from '../../components/TripCard'
 import { TripFormSheet } from '../../components/TripForm'
+import { TripCoverMedia } from '../../components/TripCoverMedia'
 import type { TripDraft } from '../../types/trip'
 
 export function TripDetailPage() {
@@ -36,7 +37,7 @@ export function TripDetailPage() {
   return (
     <main className="trip-detail">
       <section className="detail-cover">
-        <img src={trip.coverImage ?? './assets/roamune-default-cover.jpg'} alt="" />
+        <TripCoverMedia coverImage={trip.coverImage} seed={trip.id} />
         <div className="detail-cover-shade" />
         <div className="detail-top-actions">
           <button type="button" className="cover-icon-button" aria-label="Back" onClick={() => navigate(-1)}><ArrowLeft size={19} /></button>

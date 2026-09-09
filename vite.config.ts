@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/apple-touch-icon.png', 'assets/roamune-default-cover.jpg'],
+      includeAssets: ['icons/apple-touch-icon.png'],
       manifest: {
         name: 'Roamune Travel Journal',
         short_name: 'Roamune',

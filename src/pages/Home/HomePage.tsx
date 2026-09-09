@@ -37,15 +37,7 @@ export function HomePage() {
               <div><span className="stat-icon"><MapPin size={17} /></span><strong>{new Set(trips.map((trip) => trip.destination)).size}</strong><small>Destinations</small></div>
             </div>
           </section>
-        ) : (
-          <>
-            <section className="empty-cover" aria-hidden="true">
-              <img src="./assets/roamune-default-cover.jpg" alt="" />
-              <div><span className="section-eyebrow light">Ready when you are</span><h1>Where will you go next?</h1></div>
-            </section>
-            <EmptyState onCreate={() => navigate('/trips?create=1')} compact />
-          </>
-        )}
+        ) : <EmptyState onCreate={() => navigate('/trips?create=1')} compact />}
 
         {!loading && trips.length > 0 && (
           <button type="button" className="wide-create-button" onClick={() => navigate('/trips?create=1')}><Plus size={17} /> Create a new trip</button>

@@ -1,8 +1,8 @@
 # Roamune
 
-Roamune is a **mobile-first, local-first, offline-first travel PWA** for personal and family use. The first release is intentionally small: it records trips entirely on the current device and has no account, backend, or sync dependency.
+Roamune is a **local-first, offline-first travel PWA** for personal and family use. The first release is intentionally small: it records trips entirely on the current device and has no account, backend, or sync dependency.
 
-The interface is designed first for iPhone Safari and Home Screen installation, while remaining responsive in desktop browsers. Its mobile layout and interaction patterns are inspired by the local TREK reference project, with a separate, lightweight implementation for Roamune.
+The interface has dedicated phone and desktop/tablet component trees, selected at TREK's 768px viewport boundary. Both experiences share the same trip context, repository, forms, types, and local database while adapting navigation, information density, and page composition to their viewport.
 
 ## Architecture
 
@@ -20,13 +20,14 @@ Pages never open IndexedDB transactions directly. `tripRepository` owns all busi
 
 ```text
 src/
-├── app/                 # App composition, router, shared Trip state
+├── app/                 # App composition, viewport routing, shared Trip state
+├── desktop/             # Desktop/tablet shell, navbar, pages, and styles
 ├── pages/
 │   ├── Home/            # Summary, recent trip, empty state
 │   ├── Trips/           # Complete trip list
 │   ├── TripDetail/      # View, edit, and delete one trip
 │   └── Settings/        # App, storage, and future sync information
-├── mobile/              # Safe-area shell and bottom navigation
+├── mobile/              # Phone shell, viewport hook, and bottom navigation
 │   └── components/
 ├── components/          # Reusable trip cards, forms, headers, dialogs
 ├── db/                  # IndexedDB schema and transaction helpers
@@ -34,7 +35,7 @@ src/
 ├── services/            # Local image preparation
 ├── sync/                # Future sync boundary; no implementation yet
 ├── types/               # Shared Trip types
-└── styles/              # Shared design tokens and responsive styles
+└── styles/              # Shared and phone design tokens/styles
 
 public/
 ├── assets/              # Offline-safe default travel cover
@@ -146,7 +147,7 @@ The local MVP includes:
 - create, read, update, and delete for Trips
 - local optional cover-image selection
 - IndexedDB persistence through a repository boundary
-- responsive TREK-inspired mobile UI
+- dedicated TREK-inspired phone and desktop/tablet UI trees
 - installable manifest and Apple mobile metadata
 - service-worker application-shell caching
 - static GitHub Pages build and deployment workflow

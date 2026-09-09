@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { HashRouter, useLocation, useNavigate } from 'react-router'
-import { MobileShell } from '../mobile/MobileShell'
 import { TripFormSheet } from '../components/TripForm'
 import type { TripDraft } from '../types/trip'
+import { AppShell } from './AppShell'
 import { AppRouter } from './router'
 import { TripsProvider, useTrips } from './TripsProvider'
 
@@ -22,10 +22,10 @@ function AppContent() {
   }
 
   return (
-    <MobileShell>
+    <AppShell>
       <AppRouter />
       <TripFormSheet open={createOpen} onSubmit={createTrip} onClose={closeCreate} />
-    </MobileShell>
+    </AppShell>
   )
 }
 
@@ -38,4 +38,3 @@ export default function App() {
     </HashRouter>
   )
 }
-

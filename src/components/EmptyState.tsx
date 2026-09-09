@@ -1,9 +1,9 @@
-import { Luggage, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 
 export function EmptyState({ onCreate, compact = false }: { onCreate: () => void; compact?: boolean }) {
   return (
     <section className={`empty-card${compact ? ' compact' : ''}`}>
-      <span className="empty-icon"><Luggage size={28} strokeWidth={1.8} /></span>
+      <img className="trek-empty-illustration" src="./icons/icon-dark.svg" alt="" />
       <h2>No trips yet</h2>
       <p>Start recording your first journey.</p>
       <button type="button" className="primary-button" onClick={onCreate}>
@@ -12,4 +12,3 @@ export function EmptyState({ onCreate, compact = false }: { onCreate: () => void
     </section>
   )
 }
-

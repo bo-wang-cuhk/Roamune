@@ -1,15 +1,15 @@
-import { Home, Luggage, Plus, Settings } from 'lucide-react'
+import { CalendarDays, LayoutGrid, Plus, Settings, type LucideIcon } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router'
 
 export function BottomNavigation() {
   const navigate = useNavigate()
   const location = useLocation()
   const onSettings = location.pathname.startsWith('/settings')
-  const item = (path: string, label: string, Icon: typeof Home) => {
+  const item = (path: string, label: string, Icon: LucideIcon, dashboard = false) => {
     const active = path === '/' ? location.pathname === '/' : location.pathname.startsWith(path)
     return (
       <button type="button" className={`nav-item${active ? ' active' : ''}`} aria-label={label} aria-current={active ? 'page' : undefined} onClick={() => navigate(path)}>
-        <Icon size={21} strokeWidth={active ? 2.2 : 1.9} />
+        <Icon size={dashboard ? 18 : 21} strokeWidth={dashboard ? 2.1 : 1.9} />
       </button>
     )
   }
@@ -17,8 +17,8 @@ export function BottomNavigation() {
   return (
     <nav className="bottom-nav" aria-label="Main navigation">
       <div className="nav-group">
-        {item('/', 'Home', Home)}
-        {item('/trips', 'Trips', Luggage)}
+        {item('/', 'Home', LayoutGrid, true)}
+        {item('/trips', 'Trips', CalendarDays)}
       </div>
       {onSettings ? (
         <span className="nav-logo" aria-hidden="true"><img src="./icons/icon-dark.svg" alt="" /></span>
@@ -32,4 +32,3 @@ export function BottomNavigation() {
     </nav>
   )
 }
-

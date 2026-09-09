@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Camera, ImageOff, X } from 'lucide-react'
 import { prepareCoverImage } from '../services/imageService'
 import type { Trip, TripDraft } from '../types/trip'
+import { TripCoverMedia } from './TripCoverMedia'
 
 const blankDraft: TripDraft = {
   title: '',
@@ -74,7 +75,7 @@ export function TripForm({ trip, onSubmit, onCancel }: TripFormProps) {
   return (
     <form className="trip-form" onSubmit={submit}>
       <div className="form-cover">
-        <img src={draft.coverImage ?? './assets/roamune-default-cover.jpg'} alt="Selected trip cover" />
+        <TripCoverMedia coverImage={draft.coverImage} seed={trip?.id ?? (draft.title || 'new-trip')} alt="Selected trip cover" />
         <div className="cover-controls">
           <input
             ref={fileInput}

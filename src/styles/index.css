@@ -21,13 +21,19 @@
   --nav-clearance: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 * { box-sizing: border-box; }
-html { min-height: 100%; background: var(--bg); color-scheme: light; }
-body { margin: 0; min-width: 320px; min-height: 100svh; background: transparent; }
+html { height: 100%; min-height: 100%; overflow: visible; overscroll-behavior: none; background: var(--bg); color-scheme: light; }
+body { height: auto; margin: 0; min-width: 320px; min-height: 100%; min-height: 100svh; overflow: visible; overflow-x: clip; overscroll-behavior: none; background: transparent; }
+#root { min-height: 100%; min-height: 100svh; }
 body.sheet-open { overflow: hidden; }
+.route-loading { min-height: 60svh; display: grid; place-items: center; color: var(--muted); font-size: .8rem; font-weight: 650; }
+.route-loading.mobile { padding-bottom: var(--nav-clearance); }
 button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
-button { touch-action: manipulation; }
+button { margin: 0; padding: 0; border: 0; color: inherit; background: none; appearance: none; -webkit-appearance: none; touch-action: manipulation; }
+button > svg { display: block; flex: 0 0 auto; }
 img { display: block; max-width: 100%; }
+.trip-cover-media { display: block; width: 100%; height: 100%; object-fit: cover; }
+.trip-cover-gradient { background-position: center; background-size: cover; }
 
 .glass-header { position: fixed; z-index: 30; top: var(--safe-top); left: 16px; right: 16px; min-height: 58px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--glass-border); border-radius: 999px; background: var(--glass); backdrop-filter: blur(26px) saturate(1.7); -webkit-backdrop-filter: blur(26px) saturate(1.7); box-shadow: 0 14px 34px -16px rgba(0, 0, 0, .22); }
 .brand-tile { display: grid; flex: 0 0 auto; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #101013; }
@@ -40,7 +46,7 @@ img { display: block; max-width: 100%; }
 .header-action { cursor: pointer; }
 .local-badge { display: inline-flex; align-items: center; gap: 5px; padding: 7px 10px; border-radius: 999px; color: var(--muted); background: var(--inner); font-size: .64rem; font-style: normal; font-weight: 700; white-space: nowrap; }
 
-.page-content { width: min(100%, 720px); margin: 0 auto; padding: calc(var(--safe-top) + 78px) 16px var(--nav-clearance); }
+.page-content { width: min(100%, 720px); min-height: 100svh; flex: 1; margin: 0 auto; padding: calc(var(--safe-top) + 78px) 16px var(--nav-clearance); }
 .section-eyebrow { color: var(--faint); font-size: .61rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .section-eyebrow.light { color: rgba(255,255,255,.75); }
 .welcome-row { display: flex; align-items: flex-end; justify-content: space-between; margin: 4px 2px 15px; }
@@ -60,7 +66,7 @@ img { display: block; max-width: 100%; }
 .trip-card:focus-visible { box-shadow: 0 0 0 3px rgba(16,16,19,.16), 0 12px 30px -18px rgba(0,0,0,.35); }
 .trip-cover { position: relative; height: 188px; overflow: hidden; background: #2b2c35; }
 .trip-card.featured .trip-cover { height: 270px; }
-.trip-cover > img { width: 100%; height: 100%; object-fit: cover; }
+.trip-cover > .trip-cover-media { width: 100%; height: 100%; object-fit: cover; }
 .trip-cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.26), transparent 42%, rgba(0,0,0,.62)); }
 .cover-badge { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; color: #fff; background: rgba(255,255,255,.2); backdrop-filter: blur(8px); font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .cover-badge > span { width: 6px; height: 6px; border-radius: 50%; background: #fff; }
@@ -76,8 +82,9 @@ img { display: block; max-width: 100%; }
 .empty-cover img { width: 100%; height: 100%; object-fit: cover; }
 .empty-cover > div { position: absolute; z-index: 1; right: 16px; bottom: 16px; left: 16px; color: #fff; }
 .empty-cover h1 { margin: 6px 0 0; max-width: 300px; font-size: 1.65rem; line-height: 1.05; letter-spacing: -.045em; }
-.empty-card { display: flex; flex-direction: column; align-items: center; margin-top: 14px; padding: 31px 18px; text-align: center; border: 1px solid var(--glass-border); border-radius: 20px; background: var(--glass); }
+.empty-card { display: flex; min-height: min(440px, calc(100svh - var(--safe-top) - var(--nav-clearance) - 126px)); flex-direction: column; align-items: center; justify-content: center; margin-top: 14px; padding: 28px 18px; text-align: center; border: 1px solid var(--glass-border); border-radius: 20px; background: var(--glass); }
 .empty-card.compact { margin-top: 12px; padding-block: 24px; }
+.trek-empty-illustration { width: 104px; height: 104px; margin-bottom: 8px; object-fit: contain; mix-blend-mode: multiply; }
 .empty-icon { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 12px; border-radius: 18px; background: var(--inner); }
 .empty-card h2 { margin: 0; font-size: 1rem; }
 .empty-card p { margin: 5px 0 18px; color: var(--muted); font-size: .78rem; }
@@ -113,7 +120,7 @@ img { display: block; max-width: 100%; }
 .trip-form { display: grid; gap: 9px; }
 .form-cover { position: relative; height: 155px; overflow: hidden; margin-bottom: 1px; border-radius: 18px; background: #25262c; }
 .form-cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.52)); pointer-events: none; }
-.form-cover img { width: 100%; height: 100%; object-fit: cover; }
+.form-cover .trip-cover-media { width: 100%; height: 100%; object-fit: cover; }
 .cover-controls { position: absolute; z-index: 1; right: 9px; bottom: 9px; display: flex; gap: 6px; }
 .cover-button, .cover-icon-button { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 13px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #fff; background: rgba(16,16,19,.42); backdrop-filter: blur(10px); font-size: .7rem; font-weight: 700; cursor: pointer; }
 .cover-icon-button { width: 38px; padding: 0; }
@@ -136,7 +143,7 @@ img { display: block; max-width: 100%; }
 
 .trip-detail { min-height: 100svh; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); }
 .detail-cover { position: relative; height: min(52svh, 430px); min-height: 330px; overflow: hidden; border-radius: 0 0 32px 32px; box-shadow: 0 24px 58px -30px rgba(0,0,0,.58); }
-.detail-cover > img { width: 100%; height: 100%; object-fit: cover; }
+.detail-cover > .trip-cover-media { width: 100%; height: 100%; object-fit: cover; }
 .detail-cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.36), transparent 38%, rgba(0,0,0,.66)); }
 .detail-top-actions { position: absolute; top: var(--safe-top); right: 16px; left: 16px; display: flex; justify-content: space-between; }
 .detail-title { position: absolute; right: 18px; bottom: 22px; left: 18px; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.38); }
@@ -186,4 +193,3 @@ img { display: block; max-width: 100%; }
   .form-sheet { margin-bottom: 16px; border-radius: 28px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
-
